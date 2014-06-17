@@ -26,10 +26,13 @@ RUN apt-get -qqy install man-db
 ENV USER mapuser
 ENV HOME /home/mapuser
 RUN adduser --disabled-password --gecos "" mapuser
-USER mapuser
+
 
 # add repo
 ADD ./mapbox-gl-native /home/mapuser/mapbox-gl-native
+RUN chown -R mapuser:mapuser /home/mapuser/mapbox-gl-native
+
+USER mapuser
 WORKDIR /home/mapuser/mapbox-gl-native
 
 RUN make setup
